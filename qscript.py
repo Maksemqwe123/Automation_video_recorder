@@ -6,7 +6,9 @@ import uuid
 
 from playwright.sync_api import Page, sync_playwright
 
-PATH_TO_VIDEO_FOLDER = "./video"
+from media_names import safe_media_filename
+
+PATH_TO_VIDEO_FOLDER = "./uploads"
 
 SELECT_SEARCH = 'textarea[name="q"]'
 SELECT_SUBMIT = 'form button[type="submit"]'
@@ -18,11 +20,6 @@ _VIDEO_H = 720
 _DIR = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(_DIR, "overlay_init.js"), encoding="utf-8") as _f:
     OVERLAY_JS = _f.read()
-
-
-def _video_basename(company: str) -> str:
-    name = re.sub(r'[<>:"/\\\\|?*]', "_", company).strip()
-    return name or "video"
 
 
 def _center(box: dict) -> tuple[float, float]:
@@ -176,7 +173,7 @@ def CaptureVideo_Magento(
     query = f"Magento developer in {city}"
     video_dir = os.path.abspath(os.path.expanduser(PATH_TO_VIDEO_FOLDER))
     os.makedirs(video_dir, exist_ok=True)
-    dest = os.path.join(video_dir, f"{_video_basename(company_name)}.webm")
+    dest = os.path.join(video_dir, safe_media_filename(company_name))
     tmp_dir = os.path.join(video_dir, f".tmp-{uuid.uuid4().hex}")
 
     try:
