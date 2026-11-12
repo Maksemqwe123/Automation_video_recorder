@@ -13,10 +13,10 @@ python web_service.py
 Во втором терминале:
 
 ```bash
-python capture_video.py --server http://127.0.0.1:5000
+python capture_video.py --server http://127.0.0.1:8000
 ```
 
-В браузере: `http://127.0.0.1:5000/videos` или URL из ответа `/upload`.
+В браузере: `http://127.0.0.1:8000/videos` или URL из ответа `/upload`.
 
 ## API
 
